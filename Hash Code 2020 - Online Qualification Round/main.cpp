@@ -32,7 +32,7 @@ class output
 {
 public:
     int id;
-    vector<int> books_signed;  
+    vector<int> books_signed;
     void ans()
     {
         cout<<id<<" "<<books_signed.size()<<endl;
@@ -69,7 +69,7 @@ int main()
             library_signed++;
             days = days - lb[i].sign_up;
             ot[i].id = lb[i].id;
-            for(int j=0;i<lb[i].sign_up*days;j++){
+            for(int j=0;j<lb[i].sign_up*days;j++){
                 if(j < lb[i].books){
                     if (s.find(lb[i].books_library_have[j]) == s.end()){
                         ot[i].books_signed.push_back(lb[i].books_library_have[j]);
