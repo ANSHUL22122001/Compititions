@@ -32,13 +32,16 @@ class output
 {
 public:
     int id;
-    vector<int> books_signed;
+    vector<int> books_signed;  
     void ans()
     {
-        cout<<id<<" "<<books_signed.size()<<endl;
-        for(int i=0;i<books_signed.size();i++){
-            cout<<books_signed[i]<<" ";
-        }
+		if(books_signed.size() != 0){
+			cout<<id<<" "<<books_signed.size()<<endl;
+			for(int i=0;i<books_signed.size();i++){
+				cout<<books_signed[i]<<" ";
+			}
+		}
+        
         cout<<endl;
     }
 };
@@ -61,32 +64,38 @@ int main()
             }
         }
     }
-    int i,library_signed=0;
+    int library_signed=0;
     output ot[libraries];
     vector<vector<int>> answer;
-    for(i=0;i<libraries;i++){
+    for(int i=0;i<libraries;i++){
         if(days > lb[i].sign_up){
             library_signed++;
             days = days - lb[i].sign_up;
             ot[i].id = lb[i].id;
+            int k=0;
             for(int j=0;j<lb[i].sign_up*days;j++){
-                if(j < lb[i].books){
-                    if (s.find(lb[i].books_library_have[j]) == s.end()){
-                        ot[i].books_signed.push_back(lb[i].books_library_have[j]);
-                        s.insert(lb[i].books_library_have[j]);
+                while(k < lb[i].books){
+                    if (s.find(lb[i].books_library_have[k]) == s.end()){
+                        ot[i].books_signed.push_back(lb[i].books_library_have[k]);
+                        s.insert(lb[i].books_library_have[k]);
+                        break;
                     }
+                    k++;
                 }
-                else {
-                    break;
-                }
+                if(k >= lb[i].books){
+					break;
+				}
             }
+            if(ot[i].books_signed.size() == 0){
+				days = days + lb[i].sign_up;
+			}
         }
         else{
             break;
         }
     }
     cout<<library_signed<<endl;
-    for(i=0;i<library_signed;i++){
+    for(int i=0;i<library_signed;i++){
         ot[i].ans();
     }
     set<int>::iterator setIt = s.begin();
@@ -95,6 +104,8 @@ int main()
         ans.push_back(scores_of_books[*setIt]);
         setIt++;
     }
-    cout<<endl<<"scores ="<<accumulate(ans.begin(),ans.end(),0);
+    cout<<endl<<"highest ="<<scores_of_books.size()<<" "<<accumulate(scores_of_books.begin(),scores_of_books.end(),0);
+    cout<<endl<<"scores  ="<<ans.size()<<" "<<accumulate(ans.begin(),ans.end(),0);
     return 0;
 }
+
