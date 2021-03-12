@@ -49,6 +49,7 @@ int main()
     for(long long int i=0;i<number_of_developers;i++){
         dv[i].read(i);
     }
+
     for(long long int i=0;i<number_of_developers;i++){
         for(long long int j=i+1;j<number_of_developers;j++){
             if(dv[i].company > dv[j].company){
@@ -56,6 +57,23 @@ int main()
             }
         }
     }
+    for(long long int i=0;i<number_of_developers;i++){
+        long long int j=i+1;
+        for(;j<number_of_developers;j++){
+            if(dv[i].company != dv[j].company){
+                break;
+            }
+        }
+        for(long long int p=i;p<j;p++){
+            for(long long int q=i+1;q<j;q++){
+                if(dv[p].bonus < dv[q].bonus){
+                    swap(dv[p], dv[q]);
+                }
+            }
+
+        }
+    }
+
     cin>>number_of_projectmanagers;
     projectmanagers pm[number_of_projectmanagers];
 
@@ -112,5 +130,9 @@ int main()
         }
         cout<<endl;
     }
+
+    //for(long long int i=0;i<number_of_developers;i++){
+      //  cout<<dv[i].company<<" "<<dv[i].bonus<<" "<<dv[i].id<<endl;
+    //}
     return 0;
 }
